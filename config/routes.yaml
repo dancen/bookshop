@@ -1,0 +1,39 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+
+api_1.0_get_books_by_author:
+    path: /api/1.0/books/author/get
+    methods:    [POST, GET]
+    controller: App\Controller\BookshopController::getBooksByAuthor
+    defaults: 
+      _format: json
+      
+api_1.0_get_books_by_category:
+    path: /api/1.0/books/category/get
+    methods:    [POST, GET]
+    controller: App\Controller\BookshopController::getBooksByCategory
+    defaults: 
+      _format: json
+      
+api_1.0_get_books_by_author_and_category:
+    path: /api/1.0/books/author/category/get
+    methods:    [POST, GET]
+    controller: App\Controller\BookshopController::getBooksByAuthorAndCategory
+    defaults: 
+      _format: json
+      
+api_1.0_create_book:
+    path: /api/1.0/book/create
+    methods:    [POST, GET]
+    controller: App\Controller\BookshopController::createBook
+    defaults: 
+      _format: json
+            
+api_1.0_get_categories:
+    path: /api/1.0/categories/get
+    methods:    [POST, GET]
+    controller: App\Controller\BookshopController::getCategories
+    defaults: 
+      _format: json

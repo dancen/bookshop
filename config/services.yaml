@@ -1,0 +1,75 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: 'en'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+    
+                
+        
+    app.api_bookshop_manager:
+      class: App\Manager\BookshopManager
+      public: true
+      arguments: ['@doctrine.orm.entity_manager']
+      
+    App\Manager\BookshopManager: '@app.api_bookshop_manager'
+      
+    app.get_books_by_author_validator:
+      class:   App\Validator\GetBooksByAuthorValidator
+      public: true
+      arguments:   []
+      
+    App\Validator\GetBooksByAuthorValidator: '@app.get_books_by_author_validator'
+    
+    app.get_categories_validator:
+      class:   App\Validator\GetCategoriesValidator
+      public: true
+      arguments:   []
+      
+    App\Validator\GetCategoriesValidator: '@app.get_categories_validator'
+    
+    app.get_books_by_category_validator:
+      class:   App\Validator\GetBooksByCategoryValidator
+      public: true
+      arguments:   []
+      
+    App\Validator\GetBooksByCategoryValidator: '@app.get_books_by_category_validator'
+    
+    app.create_book_validator:
+      class:   App\Validator\CreateBookValidator
+      public: true
+      arguments:   []
+      
+    App\Validator\CreateBookValidator: '@app.create_book_validator'
+    
+    app.get_books_by_author_and_category_validator:
+      class:   App\Validator\GetBooksByAuthorAndCategoryValidator
+      public: true
+      arguments:   []
+      
+    App\Validator\GetBooksByAuthorAndCategoryValidator: '@app.get_books_by_author_and_category_validator'
+      
+    
+      
